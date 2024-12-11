@@ -7,12 +7,12 @@ spec:
   project: default
 
   sources:
-    repoURL: https://github.com/EITANPOD/simple-argocd-chart.git
+  - repoURL: https://github.com/EITANPOD/simple-argocd-chart.git
     targetRevision: HEAD
-    path: /simple-chart-argocd
+    path: simple-chart-argocd
     helm:
       valueFiles:
-      - /simple-chart-argocd/custom-values.yaml
+      - "/simple-chart-argocd/custom-values.yaml"
 
   destination:
     server: https://kubernetes.default.svc
