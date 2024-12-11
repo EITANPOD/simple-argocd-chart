@@ -4,6 +4,6 @@ image:
 
 service:
   type: NodePort
-  NodePort: 30080
+  nodePort: 30080
   port: 80
   protocol: TCP
