@@ -1,23 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ .Release.Name }}
+  name: argo-application
   namespace: argocd
 spec:
-  project: {{ .Values.project }}
+  project: default
 
   source:
-    repoURL: {{ .Values.source.repoURL }}
-    targetRevision: {{ .Values.source.targetRevision }}
-    path: {{ .Values.source.path }}
+    repoURL: https://github.com/EITANPOD/simple-argocd-chart.git
+    targetRevision: HEAD
+    path: /simple-chart-argocd
 
   destination:
-    server: {{ .Values.destination.server }}
-    namespace: {{ .Values.destination.namespace }}
+    server: https://kubernetes.default.svc
+    namespace: eitan-argocd-prac
 
   syncPolicy:
     automated:
-      prune: {{ .Values.syncPolicy.automated.prune }}
-      selfHeal: {{ .Values.syncPolicy.automated.selfHeal }}
+      prune: true
+      selfHeal: true
     syncOptions:  
       - CreateNamespace=true 

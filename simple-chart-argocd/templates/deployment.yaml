@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-deployment
   labels:
-    {{- include "library.labels" . | indent 2 }}
+    {{- include "library.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "library.labels" . | indent 4 }}
+      {{- include "library.labels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "library.labels" . | indent 6 }}
+        {{- include "library.labels" . | nindent 8 }}
     spec:
       containers:
         - name: {{ .Values.image.repository }}-container

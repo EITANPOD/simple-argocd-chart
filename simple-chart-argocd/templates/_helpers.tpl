@@ -24,9 +24,9 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 {{- define "library.labels" -}}
-  name: {{ .Release.Name }}
-  version: {{ .Chart.Version }}
-  type: {{ .Chart.Type }}
+name: {{ .Release.Name }}
+version: {{ .Chart.Version }}
+type: {{ .Chart.Type }}
 {{- end }}
 
 {{/*
