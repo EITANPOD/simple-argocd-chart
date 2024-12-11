@@ -6,10 +6,14 @@ metadata:
 spec:
   project: default
 
-  source:
+  sources:
     repoURL: https://github.com/EITANPOD/simple-argocd-chart.git
     targetRevision: HEAD
     path: /simple-chart-argocd
+    helm:
+      releaseName: simple-chart-argocd
+      valueFiles:
+      - custom-values.yaml
 
   destination:
     server: https://kubernetes.default.svc
