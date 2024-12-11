@@ -1,0 +1,27 @@
+image:
+  repository: nginx
+  tag: "latest"
+
+service:
+  type: NodePort
+  NodePort: 30080
+  port: 80
+  protocol: TCP
+
+project: default
+
+source:
+  repoURL: https://github.com/EITANPOD/simple-argocd-chart.git
+  targetRevision: HEAD
+  path: /simple-chart-argocd
+
+destination:
+  server: https://kubernetes.default.svc
+  namespace: eitan-argocd-prac
+
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
+  syncOptions:  
+    - CreateNamespace=true 

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-deployment
+  labels:
+    {{- include "library.labels" . | indent 2 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "library.labels" . | indent 4 }}
+  template:
+    metadata:
+      labels:
+        {{- include "library.labels" . | indent 6 }}
+    spec:
+      containers:
+        - name: {{ .Values.image.repository }}-container
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
