@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appConfig.appname }}
+  labels:
+    app: {{ .Values.appConfig.appname }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.appConfig.appname }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appConfig.appname }}
+    spec:
+      containers:
+        - name: {{ .Values.appConfig.appname }}-container
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: secret-eitan
+                  key: post-user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret-eitan
+                  key: post-pass
+            - name: POSTGRES_DB
+              value: mydatabase
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-service
+spec:
+  selector:
+    app: {{ .Values.appConfig.appName }}
+  type: {{ .Values.service.type }}
+  ports:
+    - protocol: {{ .Values.service.protocol }}
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }}

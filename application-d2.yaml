@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dynamic-config-app
+spec:
+  project: default
+  sources:
+  - repoURL: https://github.com/EITANPOD/simple-argocd-chart.git
+    targetRevision: HEAD
+    path: drill-2
+    helm:
+      valueFiles:
+      - /drill-2/values.yaml
+      parameters:
+        - name: appConfig.appName
+          value: "wordpress"
+        - name: appConfig.replicas
+          value: "2"
+        - name: image.tag
+          value: "latest"
+        - name: service.type
+          value: "NodePort"
+  - repoURL: https://github.com/EITANPOD/simple-argocd-chart.git
+    targetRevision: HEAD
+    path: drill-2
+    helm:
+      valueFiles:
+        - /drill-2/values-db.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: drill-2
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:  
+      - CreateNamespace=true 

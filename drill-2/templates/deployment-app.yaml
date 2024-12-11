@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appConfig.appname }}-deployment
+  labels:
+    {{- include "library.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "library.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "library.labels" . | nindent 4 }}
+    spec:
+      containers:
+        - image: {{ .Values.image.repository }}
+          name: {{ .Values.appConfig.appName }}-container
+          env:
+            - name: WORDPRESS_DB_USER
+              value: root
+            - name: WORDPRESS_DB_NAME
+              value: mydatabase
+            - name: WORDPRESS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret-eitan
+                  key: post_pass
+            - name: WORDPRESS_DB_HOST
+              value: db-service.drill-2.svc.cluster.local
+          imagePullPolicy: IfNotPresent
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app: {{ .Values.appConfig.appName }}
+  ports:
+    - protocol: {{ .Values.service.protocol }}
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }}
+      {{- if eq .Values.service.type "NodePort" }}
+      nodePort: {{ .Values.service.nodePort}}
+      {{- end }}

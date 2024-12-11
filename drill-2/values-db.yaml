@@ -1,0 +1,13 @@
+appConfig:
+  appName: postgres
+
+replicaCount: 1
+
+image:
+  repository: postgres
+  tag: "13"
+
+service:
+  protocol: TCP
+  type: ClusterIP
+  port: 5432
