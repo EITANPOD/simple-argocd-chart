@@ -12,7 +12,7 @@ spec:
     path: simple-chart-argocd
     helm:
       valueFiles:
-      - "/simple-chart-argocd/custom-values.yaml"
+      - /simple-chart-argocd/custom-values.yaml
 
   destination:
     server: https://kubernetes.default.svc
