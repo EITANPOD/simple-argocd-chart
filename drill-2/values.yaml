@@ -106,7 +106,7 @@ affinity: {}
 
 db:
   appConfig:
-  appName: postgres
+    appName: postgres
 
   replicaCount: 1
 
