@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.appConfig.appname }}
+  name: {{ .Values.db.appConfig.appname }}
   labels:
-    app: {{ .Values.appConfig.appname }}
+    app: {{ .Values.db.appConfig.appname }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.db.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.appConfig.appname }}
+      app: {{ .Values.db.appConfig.appname }}
   template:
     metadata:
       labels:
-        app: {{ .Values.appConfig.appname }}
+        app: {{ .Values.db.appConfig.appname }}
     spec:
       containers:
-        - name: {{ .Values.appConfig.appname }}-container
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        - name: {{ .Values.db.appConfig.appname }}-container
+          image: {{ .Values.db.image.repository }}:{{ .Values.db.image.tag }}
           env:
             - name: POSTGRES_USER
               valueFrom:
@@ -37,9 +37,9 @@ metadata:
   name: db-service
 spec:
   selector:
-    app: {{ .Values.appConfig.appName }}
-  type: {{ .Values.service.type }}
+    app: {{ .Values.db.appConfig.appName }}
+  type: {{ .Values.db.service.type }}
   ports:
-    - protocol: {{ .Values.service.protocol }}
-      port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.port }}
+    - protocol: {{ .Values.db.service.protocol }}
+      port: {{ .Values.db.service.port }}
+      targetPort: {{ .Values.db.service.port }}
