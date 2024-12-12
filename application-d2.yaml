@@ -15,7 +15,7 @@ spec:
       parameters:
       - name: "appConfig.appName"
         value: wordpress
-      - name: "appConfig.replicas"
+      - name: "replicaCount"
         value: "2"
       - name: "image.tag"
         value: latest
