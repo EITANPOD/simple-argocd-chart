@@ -21,6 +21,8 @@ spec:
         value: latest
       - name: "service.type"
         value: NodePort
+      - name: "image.repository"
+        value: wordpress
   destination:
     server: https://kubernetes.default.svc
     namespace: drill-2
