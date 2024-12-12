@@ -25,7 +25,7 @@ spec:
             - name: WORDPRESS_DB_PASSWORD
               value: pass
             - name: WORDPRESS_DB_HOST
-              value: db-service.drill-2.svc.cluster.local
+              value: localhost
           imagePullPolicy: IfNotPresent
 
 ---
