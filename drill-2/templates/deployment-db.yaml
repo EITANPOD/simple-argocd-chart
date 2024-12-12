@@ -29,7 +29,7 @@ spec:
                   name: secret-eitan
                   key: post-pass
             - name: POSTGRES_DB
-              value: mydatabase
+              value: "mydatabase"
 ---
 apiVersion: v1
 kind: Service
