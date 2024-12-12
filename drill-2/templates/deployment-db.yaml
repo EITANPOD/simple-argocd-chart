@@ -19,17 +19,11 @@ spec:
           image: {{ .Values.db.image.repository }}:{{ .Values.db.image.tag }}
           env:
             - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: secret-eitan
-                  key: post-user
+              value: admin
             - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: secret-eitan
-                  key: post-pass
+              value: admin
             - name: POSTGRES_DB
-              value: "mydatabase"
+              value: mydatabase
 ---
 apiVersion: v1
 kind: Service
