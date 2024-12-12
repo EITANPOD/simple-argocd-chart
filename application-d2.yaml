@@ -13,14 +13,14 @@ spec:
       valueFiles:
       - /drill-2/values.yaml
       parameters:
-        - name: appConfig.appName
-          value: "wordpress"
-        - name: appConfig.replicas
-          value: "2"
-        - name: image.tag
-          value: "latest"
-        - name: service.type
-          value: NodePort"
+      - name: "appConfig.appName"
+        value: wordpress
+      - name: "appConfig.replicas"
+        value: "2"
+      - name: "image.tag"
+        value: latest
+      - name: "service.type"
+        value: NodePort
   destination:
     server: https://kubernetes.default.svc
     namespace: drill-2

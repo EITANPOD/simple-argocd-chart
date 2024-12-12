@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: {{ .Values.appConfig.appname }}-deployment
   labels:
-    {{- include "library.labels" . | nindent 4 }}
+    app: {{ .Values.appConfig.appName }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "library.labels" . | nindent 6 }}
+      app: {{ .Values.appConfig.appName }}
   template:
     metadata:
       labels:
-        {{- include "library.labels" . | nindent 4 }}
+        app: {{ .Values.appConfig.appName }}
     spec:
       containers:
         - image: {{ .Values.image.repository }}
