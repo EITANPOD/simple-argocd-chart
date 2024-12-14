@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rollout-prac
+  namespace: argocd
+spec:
+  project: default
+  sources:
+  - repoURL: https://github.com/EITANPOD/simple-argocd-chart.git
+    targetRevision: HEAD
+    path: rollout-prac
+    helm:
+      valueFiles:
+      - /rollout-prac/values.yaml
+      parameters:
+      - name: "service.type"
+        value: NodePort
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: drill-3
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:  
+      - CreateNamespace=true 
